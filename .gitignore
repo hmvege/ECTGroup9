@@ -1,0 +1,6 @@
+# iOS junk
+.DS_Store
+
+# Ignoring data files
+*.dat
+*.txt
