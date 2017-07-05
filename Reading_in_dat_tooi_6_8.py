@@ -32,8 +32,8 @@ for i in range(len(a_info)-1):
 			ener_rat=energy[i]/energy[i+1]	
 			energy_6_8.append(energy_6_8)
 
-			plt.plot(z_info[i],ener_rat, 'bo', alpha=0.8)
-			plt.text(z_info[i], ener_rat+0.002, '{}'.format(a_info[i]-z_info[i]))
+			plt.plot((a_info[i]-z_info[i]),ener_rat, 'bo', alpha=0.8)
+			#plt.text(z_info[i], ener_rat+0.002, '{}'.format(a_info[i]-z_info[i]))
 			print(ener_rat, z_info[i], a_info[i], Jpi_info[i], Jpi_info[i+1])
 			i+=2
 		else:
