@@ -8,7 +8,7 @@ def BE(N,Z,deltaNZ):
 	Z*deltaHc**2 + N*deltanc - deltaNZ*c*c
 
 
-BE_ra223 = 1710.106
+BE_ra223 = 1710.106 # MeV
 delta_BE_ra223 = 0.009
 
 BE_C14 = 105.284
@@ -32,9 +32,13 @@ def Q(BE_initial=[], BE_final=[], BE_initial_std=[], BE_final_std=[]):
 	for i in xrange(len(BE_final)):
 		sum_after += BE_final[i]
 		sum_after_std += (BE_final_std[i]/BE_final[i])**2
-	Q_val = sum_before - sum_after
+	Q_val = sum_after - sum_before
 	Q_val_std = np.sqrt(sum_before_std + sum_after_std)
 	return Q_val, Q_val_std
 
-print Q([BE_ra223], [BE_C14, BE_Pb209], [delta_BE_ra223], [delta_BE_C14,delta_BE_Pb209])
+Q_value, Q_value_std = Q([BE_ra223], [BE_C14, BE_Pb209], [delta_BE_ra223], [delta_BE_C14,delta_BE_Pb209])
 
+print Q_value
+
+T_half_life = np.log(2)/(Q_value*1e6)
+print T_half_life
