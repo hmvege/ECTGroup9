@@ -1,12 +1,12 @@
 
 #First exercise ECT
 
-import numpy 
+import numpy as np
 import matplotlib.pyplot as plt
 
 #Upload data from aud16
 
-aud16 = numpy.loadtxt("aud16.dat", skiprows=1)
+aud16 = np.loadtxt("aud16.dat", skiprows=2)
 
 ia = []
 iz = []
@@ -24,7 +24,7 @@ for i in range(0,len(aud16)):
 
 #Upload data from rms13
 
-rms13 = numpy.loadtxt("rms13.dat", skiprows=2, usecols=(0,1,2,3,4))
+rms13 = np.loadtxt("rms13.dat", skiprows=2, usecols=(0,1,2,3,4))
 
 z = []
 n = []
@@ -83,14 +83,26 @@ for Z in Z_Range:
 
 
 Ndrip = [78, 81, 83, 85, 88, 90, 93, 95, 97]
+fit, cov = np.polyfit(Z_Range, Ndrip,1,cov=True)
+errors = np.sqrt(np.diag(cov))
+x = np.linspace(Z_Range[0],Z_Range[-1],100)
+y = np.polyval(fit,x)
 
-plt.scatter(Z_Range, Ndrip)
+print "a = %g, b = %g" % (fit[0], fit[1])
+print "a_err = %.6g, b_err = %.6g" % (errors[0],errors[1])
+
+plt.plot(Z_Range, Ndrip,"o",label="Dripline")
+plt.hold(True)
+plt.grid(True)
+plt.plot(x,y,label="a = %.2f +/- %.2f, b = %.2f +/- %.2f" % (fit[0], errors[0], fit[1], errors[1]))
+plt.legend(loc="best",numpoints=1)
 plt.xlabel('Proton number')
 plt.ylabel('Neutrons')
 plt.title('Neutron dripline using BW semiempirical mass formula')
-
+plt.savefig("dripline.png",dpi=400)
 plt.show()
 
+exit(1)
 
 
 ##############################################################
