@@ -1,0 +1,9 @@
+For  36 protons, the dripline is  78 neutrons.
+For  37 protons, the dripline is  81 neutrons.
+For  38 protons, the dripline is  83 neutrons.
+For  39 protons, the dripline is  85 neutrons.
+For  40 protons, the dripline is  88 neutrons.
+For  41 protons, the dripline is  90 neutrons.
+For  42 protons, the dripline is  93 neutrons.
+For  43 protons, the dripline is  95 neutrons.
+For  44 protons, the dripline is  97 neutrons.
