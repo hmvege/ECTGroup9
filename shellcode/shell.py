@@ -3,7 +3,7 @@
 import numpy 
 import itertools
 
-sp_states = numpy.loadtxt("inputsp1.txt", skiprows=1)
+sp_states = numpy.loadtxt("inputsp.txt", skiprows=1)
 
 Index_inp = []
 n_inp = []
@@ -35,10 +35,10 @@ for i in range(0,len(Index_inp)):
      m_scheme.append( ((i+1,j+1),m_inp[i]+m_inp[j]) )
 
 
-M_fix = 0 
+
 
 #Specify the number of particles in our space 
-N_part = 5
+N_part = 4
 
 #Construct all the Slater determinants 
 
@@ -51,30 +51,28 @@ print  "There are ", len(SD), "Slater Determinants in a space with ", len(Index_
 print 
 print 
 
-#print SD[0][0]
-#print SD[0][1]
-
-SD_M_fix = []
-
-m_tot_SD = 0
-
-#for i in SD:
-#  for j in xrange(N_part):
-#     m_tot_SD += m_inp[Index_inp.index(int(SD[i][j]))]
-#     if (m_tot_SD == 0):
-#       SD_M_fix.append(i)
-
-#print SD_M_fix
 
 
-#print Index_inp.index(int(SD[0][1]))
+#Set up M-scheme
 
-#print int(SD[0][1])
+M_fix = 0  #Fix total M
 
-#print m_inp[Index_inp.index(int(SD[0][1]))] + m_inp[Index_inp.index(int(SD[0][0]))]
+SD_M_fix = []   #Slater Determinants with fixed M 
 
 
-#print SD_M_fix
+for i in SD:
+  m_tot_SD = 0
+  for j in xrange(N_part):
+     m_tot_SD = m_tot_SD + m_inp[Index_inp.index(int(i[j]))]
+  if (m_tot_SD == M_fix):
+    SD_M_fix.append(i)
+
+
+print SD_M_fix
+print 
+print "There are ", len(SD_M_fix), "Slater Determinants with total M: ", M_fix
+print 
+print 
   
 
 
