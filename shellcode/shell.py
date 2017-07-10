@@ -11,6 +11,7 @@ l_inp = []
 tj_inp = []
 tm_inp = []
 
+##### TRIAL VERSION
 
 
 for i in range(0,len(sp_states)): 
