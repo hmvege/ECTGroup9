@@ -109,9 +109,9 @@ class XShell:
 		H_matrix = np.zeros((self.N_states,self.N_states))
 
 		for alpha in xrange(self.N_states):
-			H_matrix[alpha,alpha] = self.applyHamiltonian(alpha,alpha)
+			H_matrix[alpha,alpha] = self.apply_hamiltonian(alpha,alpha)
 			for beta in xrange(alpha+1, self.N_states):
-				H_matrix[alpha,beta] = self.applyHamiltonian(alpha,beta)
+				H_matrix[alpha,beta] = self.apply_hamiltonian(alpha,beta)
 				H_matrix[beta,alpha] = H_matrix[alpha,beta]
 		self.H_matrix = H_matrix
 
@@ -122,8 +122,30 @@ class XShell:
 		self.eigen_values, self.eigen_vectors = np.linalg.eigh(self.H_matrix)
 		return self.eigen_values, self.eigen_vectors
 
-	def applyHamiltonian(self, alpha, beta):
-		G = 1
+	def apply_hamiltonian_old(self, alpha, beta):
+		G = -1
+		alpha_state = self.SD_updated[alpha]
+		beta_state = self.SD_updated[beta]
+		beta_state_indexes = set(state.state_index for state in beta_state) # Puts state indexes into a set to perform bitwise operations on
+		alpha_state_indexes = set(state.state_index for state in alpha_state) 
+		annihilation_states = []
+		creation_states = []
+
+		# Apply annihilation operators
+		for pair in self.pair_list:
+			if len(pair & beta_state_indexes) == 2: # If two elements coincide, we can destroy a pair of particles
+				annihilation_states.append(beta_state_indexes ^ pair) # Appends only if pair does not exist in beta_state_indexes
+
+		# Apply creation operators
+		for pair in self.pair_list:
+			for state in annihilation_states:
+				if len(pair & state) == 0: # If no elements coincide, we can create a pair of particles
+					creation_states.append(state ^ pair)
+
+		return sum([G for state in creation_states if state == alpha_state_indexes])
+
+	def apply_hamiltonian(self, alpha, beta):
+		G = -1
 		alpha_state = self.SD_updated[alpha]
 		beta_state = self.SD_updated[beta]
 		beta_state_indexes = set(state.state_index for state in beta_state) # Puts state indexes into a set to perform bitwise operations on
@@ -154,7 +176,18 @@ def test1():
 	shell.m_scheme_setup(M_value)
 	shell.build_hamiltonian()
 	shell.solve_interaction_matrix()
+
+def test2():
+	N_part = 3
+	M_value = 0.5
+	input_file = "inputsp2.txt"
+	shell = XShell(input_file, True)
+	shell.generate_slater_determinants(N_part)
+	shell.m_scheme_setup(M_value)
+	shell.build_hamiltonian()
+	shell.solve_interaction_matrix()
 	print shell.eigen_values
+
 
 if __name__ == '__main__':
 	print """Questions:
