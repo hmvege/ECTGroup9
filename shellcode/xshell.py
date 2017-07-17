@@ -48,6 +48,7 @@ class Hamiltonian:
 
 	def set_pair_list(self, pair_list):
 		self.pair_list = pair_list
+		print pair_list
 
 	def pair_annihilation(self,annihilation_states,creation_states,beta_state):
 		"""
@@ -98,7 +99,7 @@ class PairingHamiltonian(Hamiltonian):
 
 	def __call__(self, alpha, beta):
 		sp_e = self._sp_energy(alpha,beta)
-		pot = self._potential(alpha,beta)
+		# pot = self._potential(alpha,beta)
 		# print "pot = ", pot
 		# raise NotImplementedError("Not implemented pairing hamiltonian!!")
 		return sp_e
@@ -107,11 +108,24 @@ class PairingHamiltonian(Hamiltonian):
 	def _sp_energy(self, alpha, beta):
 		# N OPERATOR IS DIFFERENT THAN JUST THE LENGTH
 		val = 0
-		for n in self.n_list:
-			for state in self.n_list[n]:
-				val += state.sp_energy
-			val *= n*len(self.n_list[n]) # Might need to do n=n+1?
+		# for n in self.n_list:
+		# 	for state in self.n_list[n]:
+		# 		val += state.sp_energy
+		# 	val *= n*len(self.n_list[n]) # Might need to do n=n+1?
+
 		return val
+
+	def pair_annihilation(self,annihilation_states,creation_states,beta_state):
+		"""
+		Apply annihilation operators one a set of states.
+		"""
+		return None
+
+	def pair_creation(self,annihilation_states,creation_states,beta_state):
+		"""
+		Apply creation operators.
+		"""
+		return None
 
 	def _potential(self, alpha, beta):
 		# POTENTIAN DIFFERENT FROM BASIC HAMILTONIAN! LOOPS OVER N AND SPIN
@@ -311,29 +325,29 @@ def test1():
 	shell.build_hamiltonian()
 	shell.solve_interaction_matrix()
 
-def test2():
-	N_part = 4
-	M_value = 0
-	G = -1
-	input_file = "inputsp3.txt"
-	H = PairingHamiltonian(G)
-	shell = XShell(input_file, H, True)
-	shell.generate_slater_determinants(N_part)
-	shell.m_scheme_setup(M_value)
-	shell.build_hamiltonian()
-	# shell.solve_interaction_matrix()
-
-# def test3():
+# def test2():
 # 	N_part = 4
 # 	M_value = 0
 # 	G = -1
-# 	input_file = "usdbint.txt"
+# 	input_file = "inputsp3.txt"
 # 	H = PairingHamiltonian(G)
 # 	shell = XShell(input_file, H, True)
 # 	shell.generate_slater_determinants(N_part)
 # 	shell.m_scheme_setup(M_value)
 # 	shell.build_hamiltonian()
 # 	# shell.solve_interaction_matrix()
+
+def test3():
+	N_part = 4
+	M_value = 0
+	G = -1
+	input_file = "usdbint.txt"
+	H = PairingHamiltonian(G)
+	shell = XShell(input_file, H, True)
+	shell.generate_slater_determinants(N_part)
+	shell.m_scheme_setup(M_value)
+	shell.build_hamiltonian()
+	# shell.solve_interaction_matrix()
 
 if __name__ == '__main__':
 	print """Questions:
@@ -343,5 +357,5 @@ if __name__ == '__main__':
 * |||a^dagger_k||| notation means...?
 	"""
 	# test1()
-	test2()
-	# test3()
+	# test2()
+	test3()
