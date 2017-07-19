@@ -1,0 +1,47 @@
+Problem 8
+-----------
+
+
+Computing the spectroscopic factors and the sum rule we obtain 
+
+1s1
+-------------------------
+Ji      Jf       sum 
+0.5+    0.0+     1.8587
+0.5+    1.0+     0.0342
+
+holes = (2Jf + 1)/(2Ji + 1) sum = 1.8587/2 + 3*0.0342/2 = 0.98
+
+
+0d3
+-------------------------
+Ji      Jf       sum 
+0.5+    1.0+     0.9391
+0.5+    2.0+     0.9671
+
+holes = (2Jf + 1)/(2Ji + 1) sum = 3.83
+
+
+
+0d5
+-------------------------
+Ji      Jf       sum 
+0.5+    2.0+     0.0476
+0.5+    3.0+     0.0206
+
+holes = (2Jf + 1)/(2Ji + 1) sum = 0.19
+
+
+Comparing with o_23b.occ, we see that the occupancy of particles plus the occupancy of holes (computed now) is equal to the total space:
+
+1s1
+-------------------------
+p+h = 1.02 + 0.98 = 2
+
+0d3
+-------------------------
+p+h = 0.17 + 3.83 = 4
+
+0d5
+-------------------------
+p+h = 5.81 + 0.19 = 6

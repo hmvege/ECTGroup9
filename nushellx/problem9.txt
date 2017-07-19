@@ -1,0 +1,26 @@
+Problem 9
+-------------
+
+23^O 5/2+
+
+
+---------o-o-----------  s1/2
+
+---o-o-o----o-o-x------  d5/2
+
+
+22^O 0+
+
+
+---------o-o-----------  s1/2
+
+---o-o-o----o-x-x------  d5/2
+
+
+
+To go from 23^O 5/2+ to 22^O 0+ by one nucleon removal. We have to remove one from the d5/2 shell, otherwise we don't have the good
+quantum numbers. But the nucleons in d5/2 are much more bounded than the nucleons in the s1/2 shell so it is very difficult to get 
+rid of one of them, and as a consequence the probability to do so is very small. 
+
+
+
